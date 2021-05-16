@@ -2,23 +2,23 @@ package chapter3.variantA.buisnesLogic;
 
 import chapter3.variantA.entity.Entity;
 import chapter3.variantA.extention.ErrorMessage;
-import chapter3.variantA.extention.MyExtention;
+import chapter3.variantA.extention.MyException;
 
 public class PersonArray {
 	private int size;
 	private Entity[] array;
 	
 	//constructors
-	public PersonArray(Entity[] array) throws MyExtention {
+	public PersonArray(Entity[] array) throws MyException {
 		if(array.length==0) {
-			throw new MyExtention (ErrorMessage.WRONG_PARAMETER);
+			throw new MyException (ErrorMessage.WRONG_PARAMETER);
 		}
 		this.array=array;
 	}
 	
-	public PersonArray(int size) throws MyExtention {
+	public PersonArray(int size) throws MyException {
 		if (size<=0) {
-			throw new MyExtention (ErrorMessage.WRONG_PARAMETER);
+			throw new MyException (ErrorMessage.WRONG_PARAMETER);
 		}
 		this.size=size;
 		for(int i=0; i<size; i++) {

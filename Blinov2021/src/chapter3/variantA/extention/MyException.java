@@ -7,19 +7,19 @@ package chapter3.variantA.extention;
  *
  */
 
-public class MyExtention extends Throwable {
+public class MyException extends Throwable {
 
 	private static final long serialVersionUID = -9033481122496722040L;
 	
-	public MyExtention() {
+	public MyException() {
 		super();
 	}
 	
-	public MyExtention(String message) {
+	public MyException(String message) {
 		super(message);
 	}
 	
-	public MyExtention(String message, Throwable cause) {
+	public MyException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
