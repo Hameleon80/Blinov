@@ -1,1 +1,5 @@
-1 Ahtirskiy Yuriy Vladimirovic str.Lenina bld.4 apt. 46 8(088)888-88-88 12.04.54 IT 1 IT_21_1
+1|Ahtirskiy|Yuriy|Vladimirovic|str.Lenina bld.4 apt. 46|8(088)888-88-88|12.04.1983|IT|1|IT_21_1
+234|Petrov|Andrey|Ivanovic|str.Rogan bld.15 apt. 112|8(077)777-77-77|05.10.1979|MEDIC|3|MEDIC_18_1
+15|Ivanov|Petr|Vasilievic|str.Cheremuha bld.49|8(055)555-55-55|29.06.1980|MEDIC|2|MEDIC_19_2
+1128|Sidorov|Oleg|Petrovic|str.Pobedy bld.55 apt. 68|8(044)444-44-44|19.01.1981|ELECTRONIC|1|ELECTRONIC_21_2
+5|Lukashin|Igor|Sergeevic|str.Kievskaya bld.37 apt. 88|8(033)333-33-33|17.03.1979|ELECTRONIC|3|ELECTRONIC_18_1

@@ -5,7 +5,7 @@ import chapter3.variantA.entity.Student;
 public class Students {
 
 	public static void main(String[] args) {
-		
+		Util.readArrayFromFile("students.txt");
 
 	}
 
