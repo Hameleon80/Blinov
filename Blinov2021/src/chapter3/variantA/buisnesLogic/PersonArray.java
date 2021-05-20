@@ -1,15 +1,19 @@
 package chapter3.variantA.buisnesLogic;
 
-import chapter3.variantA.entity.Entity;
+import chapter3.variantA.entity.Person;
 import chapter3.variantA.extention.ErrorMessage;
 import chapter3.variantA.extention.MyException;
 
 public class PersonArray {
 	private int size;
-	private Entity[] array;
+	private Person[] array;
 	
 	//constructors
-	public PersonArray(Entity[] array) throws MyException {
+	public PersonArray() {
+		
+	}
+	
+	public PersonArray(Person[] array) throws MyException {
 		if(array.length==0) {
 			throw new MyException (ErrorMessage.WRONG_PARAMETER);
 		}
@@ -21,9 +25,16 @@ public class PersonArray {
 			throw new MyException (ErrorMessage.WRONG_PARAMETER);
 		}
 		this.size=size;
-		for(int i=0; i<size; i++) {
-			array[i]=null;
-		}
+		array=new Person[size];
+	}
+	
+	//Getters
+	public int getSize() {
+		return size;
+	}
+	
+	public Person[] getArray() {
+		return array;
 	}
 		
 	/**
@@ -32,11 +43,11 @@ public class PersonArray {
 	 * @param element - added element
 	 * @return - true if element added, false if not.
 	 */
-	public boolean add(Entity element) {
+	public boolean add(Person element) {
 		if(element!=null) {
 			size++;
-			Entity[] temp = new Entity[size];
-			for(int i=0; i<size; i++) {
+			Person[] temp = new Person[size];
+			for(int i=0; i<size-1; i++) {
 				temp[i]=array[i];
 			}
 			temp[size-1]=element;
@@ -54,7 +65,7 @@ public class PersonArray {
 	public boolean remove() {
 		if (size>0) {
 			size--;
-			Entity[] temp=new Entity[size];
+			Person[] temp=new Person[size];
 			for(int i=0; i <size; i++) {
 				temp[i]=array[i];
 			}

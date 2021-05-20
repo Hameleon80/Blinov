@@ -10,6 +10,7 @@ import chapter3.variantA.entity.Course;
 import chapter3.variantA.entity.Faculty;
 import chapter3.variantA.entity.Groupe2021;
 import chapter3.variantA.entity.Student;
+import chapter3.variantA.extention.MyException;
 
 public class Util {
 	/**
@@ -17,28 +18,29 @@ public class Util {
 	 * 
 	 * @param file - file with students
 	 * @return - student's array
+	 * @throws MyException 
 	 */
-	public static Student[] readStudentArrayFromFile(String file) {
-		Student[] array=new Student[5];
+	public static PersonArray readStudentArrayFromFile(String file) throws MyException {
+		PersonArray array=new PersonArray();
 		BufferedReader br=null;
 		try {
 			br=new BufferedReader(new FileReader(file));
 			String line=null;
-			int lineNumber=0;
 			while((line=br.readLine())!=null) {
-				lineNumber++;
-				StringTokenizer tokenStr = new StringTokenizer(line, "|");
+				StringTokenizer tokenStr = new StringTokenizer(line, "|", false);
 				while(tokenStr.hasMoreTokens()) {
-					array[lineNumber].setId(Integer.parseInt(tokenStr.nextToken()));
-					array[lineNumber].setLastName(tokenStr.nextToken());
-					array[lineNumber].setFirstName(tokenStr.nextToken());
-					array[lineNumber].setMiddleName(tokenStr.nextToken());
-					array[lineNumber].setAdres(tokenStr.nextToken());
-					array[lineNumber].setPhoneNumber(tokenStr.nextToken());
-					array[lineNumber].setBirthday(new Date(Long.parseLong(tokenStr.nextToken())));
-					array[lineNumber].setFaculty(Faculty.valueOf(tokenStr.nextToken().toUpperCase()));
-					array[lineNumber].setCourse(Course.valueOf(tokenStr.nextToken().toUpperCase()));
-					array[lineNumber].setGroupe(Groupe2021.valueOf(tokenStr.nextToken().toUpperCase()));
+					Student student=new Student();
+					student.setId(Integer.parseInt(tokenStr.nextToken().trim()));
+					student.setLastName(tokenStr.nextToken().trim());
+					student.setFirstName(tokenStr.nextToken().trim());
+					student.setMiddleName(tokenStr.nextToken().trim());
+					student.setAdres(tokenStr.nextToken().trim());
+					student.setPhoneNumber(tokenStr.nextToken().trim());
+					student.setBirthday(new Date(Long.parseLong(tokenStr.nextToken().trim())));
+					student.setFaculty(Faculty.valueOf(tokenStr.nextToken().trim().toUpperCase()));
+					student.setCourse(Course.valueOf(tokenStr.nextToken().trim().toUpperCase()));
+					student.setGroupe(Groupe2021.valueOf(tokenStr.nextToken().trim().toUpperCase()));
+					array.add(student);
 				}
 			}
 			br.close();

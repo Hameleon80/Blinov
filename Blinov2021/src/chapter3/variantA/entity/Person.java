@@ -82,7 +82,12 @@ public class Person extends Entity{
 	
 	@Override
 	public String toString() {
-		return lastName + " " + firstName + " " + middleName;
+		return lastName + " " + firstName + " " + middleName +
+				"\nadress: " + adres + 
+				"\nphone number: " + phoneNumber;
 	}
 	
+	public String getName() {
+		return lastName + " " + firstName + " " + middleName;
+	}
 }

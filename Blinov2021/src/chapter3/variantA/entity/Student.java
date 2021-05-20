@@ -14,7 +14,11 @@ public class Student extends Person {
 	private Course course;
 	private Groupe2021 groupe;
 	
-	//constructor
+	//constructors
+	public Student() {
+		super();
+	}
+	
 	public Student(int id, String lastName, String firstName, String middleName, String adres, String phoneNumber, 
 			Date birthday, Faculty faculty, Course course, Groupe2021 groupe) {
 		super(id, lastName, firstName, middleName, adres, phoneNumber);
@@ -61,8 +65,8 @@ public class Student extends Person {
 	@Override
 	public String toString() {
 		return super.toString() +
-				"faculty: " + faculty+
-				"course: " + course.ordinal()+
-				"groupe: " + groupe;
+				"\nfaculty: " + faculty+
+				//"course: " + course.ordinal()+
+				"\ngroupe: " + groupe;
 	}
 }
