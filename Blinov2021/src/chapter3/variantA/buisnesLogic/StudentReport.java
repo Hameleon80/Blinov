@@ -1,9 +1,12 @@
 package chapter3.variantA.buisnesLogic;
 
-import chapter3.variantA.entity.Course;
-import chapter3.variantA.entity.Faculty;
+import java.util.Calendar;
+
 import chapter3.variantA.entity.Person;
 import chapter3.variantA.entity.Student;
+import chapter3.variantA.enums.Course;
+import chapter3.variantA.enums.Faculty;
+import chapter3.variantA.enums.Groupe2021;
 import chapter3.variantA.extention.ErrorMessage;
 import chapter3.variantA.extention.MyException;
 
@@ -76,10 +79,28 @@ public class StudentReport {
 		}
 		//print list
 		Student student=null;
+		Calendar calendar=Calendar.getInstance();
+		System.out.println("	*************List of students whose born after " + year + " year *************");
 		for(Person arrElement: studentsArray) {
 			student=(Student)arrElement;
-			//if(student.getBirthday().)
+			calendar.setTime(student.getBirthday());
+			if(calendar.get(Calendar.YEAR)>=year) {
+				System.out.println(student.getName());
+			}
 		}
 	}
-
+	
+	public static void printGroupeList(Groupe2021 groupe, Person[] studentsArray) throws MyException {
+		if(groupe==null || studentsArray.length==0) {
+			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+		}
+		//print report
+		Student student=null;
+		for(Person arrElement: studentsArray) {
+			student=(Student)arrElement;
+			if(groupe.equals(student.getGroupe())) {
+				System.out.println(student.getName());
+			}
+		}
+	}
 }

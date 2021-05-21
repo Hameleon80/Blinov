@@ -1,6 +1,10 @@
 package chapter3.variantA.entity;
 
 import java.util.Date;
+
+import chapter3.variantA.enums.Course;
+import chapter3.variantA.enums.Faculty;
+import chapter3.variantA.enums.Groupe2021;
 /**
  * Entity that describes student.
  * 
@@ -66,7 +70,7 @@ public class Student extends Person {
 	public String toString() {
 		return super.toString() +
 				"\nfaculty: " + faculty+
-				//"course: " + course.ordinal()+
+				"\ncourse: " + course+
 				"\ngroupe: " + groupe;
 	}
 }

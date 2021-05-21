@@ -1,4 +1,4 @@
-package chapter3.variantA.entity;
+package chapter3.variantA.enums;
 
 public enum Faculty {
 	IT, MEDIC, BOOKKEEPER, ELECTRONIC

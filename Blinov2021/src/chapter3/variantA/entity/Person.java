@@ -13,7 +13,7 @@ public class Person extends Entity{
 	protected String lastName;
 	protected String firstName;
 	protected String middleName;
-	protected String adres;
+	protected String adress;
 	protected String phoneNumber;
 	
 	//constructors
@@ -21,13 +21,13 @@ public class Person extends Entity{
 		super();
 	}
 	
-	public Person(int id, String lastName, String firstName, String middleName, String adres, String phoneNumber) {
+	public Person(int id, String lastName, String firstName, String middleName, String adress, String phoneNumber) {
 		super();
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.middleName = middleName;
-		this.adres = adres;
+		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 	}
 	
@@ -65,11 +65,11 @@ public class Person extends Entity{
 	}
 
 	public String getAdres() {
-		return adres;
+		return adress;
 	}
 
 	public void setAdres(String adres) {
-		this.adres = adres;
+		this.adress = adres;
 	}
 
 	public String getPhoneNumber() {
@@ -83,7 +83,7 @@ public class Person extends Entity{
 	@Override
 	public String toString() {
 		return lastName + " " + firstName + " " + middleName +
-				"\nadress: " + adres + 
+				"\nadress: " + adress + 
 				"\nphone number: " + phoneNumber;
 	}
 	
