@@ -7,8 +7,8 @@ import chapter3.variantA.entity.Student;
 import chapter3.variantA.enums.Course;
 import chapter3.variantA.enums.Faculty;
 import chapter3.variantA.enums.Groupe2021;
-import chapter3.variantA.extention.ErrorMessage;
-import chapter3.variantA.extention.MyException;
+import chapter3.variantA.exceptions.ErrorMessage;
+import chapter3.variantA.exceptions.MyException;
 
 /**
  * Class with methods that prints reports.

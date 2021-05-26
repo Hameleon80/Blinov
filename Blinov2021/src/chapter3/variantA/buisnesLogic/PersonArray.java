@@ -1,8 +1,8 @@
 package chapter3.variantA.buisnesLogic;
 
 import chapter3.variantA.entity.Person;
-import chapter3.variantA.extention.ErrorMessage;
-import chapter3.variantA.extention.MyException;
+import chapter3.variantA.exceptions.ErrorMessage;
+import chapter3.variantA.exceptions.MyException;
 
 public class PersonArray {
 	private int size;

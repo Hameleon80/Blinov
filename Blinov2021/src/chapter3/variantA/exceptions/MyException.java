@@ -1,4 +1,4 @@
-package chapter3.variantA.extention;
+package chapter3.variantA.exceptions;
 
 /**
  * Class that realizes exceptions for this chapter.
