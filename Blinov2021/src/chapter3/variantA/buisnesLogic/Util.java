@@ -3,9 +3,11 @@ package chapter3.variantA.buisnesLogic;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import chapter3.variantA.entity.Abiturient;
 import chapter3.variantA.entity.Customer;
 import chapter3.variantA.entity.Patient;
 import chapter3.variantA.entity.Person;
@@ -95,6 +97,7 @@ public class Util {
 	 * 
 	 * @param file - file name. Stores information about patients.
 	 * @return	- filled array.
+	 * @throws MyException - exception described in my application
 	 */
 	public static PersonArray readPatientsFromFile(String file) throws MyException{
 		if (file.isEmpty() || file.length()==0) {
@@ -122,11 +125,51 @@ public class Util {
 				}
 				patients.add(patient);
 			}
+			br.close();
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}
-		
 		return patients;
+	}
+	
+	/**
+	 * Reads from file information about abiturients. Add to array.
+	 * 
+	 * @param file - text file with abiturients. Every field separate with "|".
+	 * @return - array with abiturients
+	 * @throws MyException - exception described in my application 
+	 */
+	public static PersonArray readAbiturienFromFile(String file) throws MyException {
+		if (file==null || file.isEmpty()) {
+			throw new MyException(ErrorMessage.WRONG_FILE_NAME);
+		}
+		
+		PersonArray abiturients=new PersonArray();
+		BufferedReader br=null;
+		StringTokenizer token=null;
+		String line=null;
+		Abiturient abiturient=null;
+		try {
+			br=new BufferedReader(new FileReader(file));
+			while((line=br.readLine())!=null) {
+				token=new StringTokenizer(line, "|");
+				abiturient=new Abiturient();
+				while(token.hasMoreTokens()) {
+					abiturient.setId(Integer.parseInt(token.nextToken()));
+					abiturient.setLastName(token.nextToken());
+					abiturient.setFirstName(token.nextToken());
+					abiturient.setMiddleName(token.nextToken());
+					abiturient.setAdres(token.nextToken());
+					abiturient.setPhoneNumber(token.nextToken());
+					abiturient.setGrade(getGradeFromFile("grades.txt", abiturient.getId()));
+				}
+				abiturients.add(abiturient);
+			}
+			br.close();
+		}catch(IOException ex) {
+			throw new MyException(ErrorMessage.CANT_READ_FILE, ex);
+		}
+		return abiturients;
 	}
 	
 	/**
@@ -165,5 +208,41 @@ public class Util {
 		array[left]=array[right];
 		array[right]=temp;
 		return array;
+	}
+	
+	/**
+	 * Read from text file sequence of numbers delimited by "|". First number is abiturient's ID.
+	 * Other numbers is abiturient's grades.  
+	 * Write numbers in ArrayList 
+	 * 
+	 * @param file - text file with ID and grades
+	 * @param id - ID of required abiturient.
+	 * @return - list with grades
+	 * @throws MyException - exception described in my application. Throws if file name or ID is incorrect.
+	 */
+	private static ArrayList<Integer> getGradeFromFile(String file, int id) throws MyException{
+		if(file==null || file.length()==0 || id<=0) {
+			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+		}
+		ArrayList<Integer> grades=null;
+		BufferedReader br=null;
+		StringTokenizer token=null;
+		String line=null;
+		try {
+			br=new BufferedReader(new FileReader(file));
+			while((line=br.readLine())!=null) {
+				token=new StringTokenizer(line, "|");
+				if(Integer.parseInt(token.nextToken())==id) {
+					grades=new ArrayList<>();
+					while(token.hasMoreTokens()) {
+						grades.add(Integer.parseInt(token.nextToken()));
+					}
+				}
+			}
+			br.close();
+		}catch(IOException ex) {
+			throw new MyException(ErrorMessage.CANT_READ_FILE, ex);
+		}
+		return grades;
 	}
 }

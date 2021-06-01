@@ -27,7 +27,15 @@ public class Runner {
 			PersonArray patients=Util.readPatientsFromFile("patients.txt");
 			Person[] pat=patients.getArray();
 			PatientReport.patientWithDiagnosis(pat, "cough");
+			
+			//Abiturients
+			PersonArray abiturients=Util.readAbiturienFromFile("abiturients.txt");
+			Person[] abb=abiturients.getArray();
+			AbiturientReport.abiturientsBadGrade(abb);
+			AbiturientReport.goodSummGrades(abb, 30);
+			
 		}catch (MyException ex) {
+			System.out.println(ex.getMessage());
 			System.out.println(ex.getCause());
 		}
 	}

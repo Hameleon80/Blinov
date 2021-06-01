@@ -1,4 +1,4 @@
-package chapter3.variantA.exceptions;
+package chapter3.variantB.exception;
 
 public class ErrorMessage {
 	public static final String WRONG_PARAMETER="Error! Wrong parameter";
