@@ -21,8 +21,11 @@ public class MyArray {
 	//Constructors
 	public MyArray() {}
 	
-	//public MyArray()
-	
+	public MyArray(Parent[] array, int size) {
+		this.array = array;
+		this.size = size;
+	}
+
 	//Getters and Setters
 	public Parent[] getArray() {
 		return array;
@@ -75,6 +78,34 @@ public class MyArray {
 				temp[i]=array[i];
 			}
 			temp[size-1]=element;
+			array=temp;
+			result=true;
+		}
+		return result;
+	}
+	
+	/**
+	 * Removes last element from array
+	 * 
+	 * @return - true if element removed false if not
+	 * @throws MyException - throws if array is empty
+	 */
+	public boolean remove() throws MyException {
+		if(size==0) {
+			throw new MyException(ErrorMessage.NO_ELEMENT_TO_DELETE);
+		}
+		boolean result=false;
+		
+		if(size==1) {
+			size=0;
+			this.array=null;
+			result=true;
+		}else {
+			size--;
+			Parent[] temp=new Parent[size];
+			for(int i=0; i<size; i++) {
+				temp[i]=this.array[i];
+			}
 			array=temp;
 			result=true;
 		}
