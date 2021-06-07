@@ -63,7 +63,7 @@ public class MyArray {
 	 */
 	public boolean add(Parent element) throws MyException {
 		if(element==null) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		boolean result=false;
 		if(size==0) {
@@ -110,5 +110,20 @@ public class MyArray {
 			result=true;
 		}
 		return result;
+	}
+	
+	/**
+	 * Prints all array.
+	 * 
+	 * @throws MyException - throws if array is empty
+	 */
+	public void printArray() throws MyException {
+		if(size==0) {
+			throw new MyException(ErrorMessage.EMPTY_ARRAY);
+		}
+		for(Parent arrElement: array) {
+			System.out.print("[" + arrElement + "] ");
+		}
+		System.out.println("\n");
 	}
 }

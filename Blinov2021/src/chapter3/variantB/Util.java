@@ -1,21 +1,36 @@
 package chapter3.variantB;
 
-import chapter3.variantA.exceptions.MyException;
+import java.util.Random;
+
+import chapter3.variantB.exception.MyException;
 import chapter3.variantB.entity.Fraction;
+import chapter3.variantB.entity.MyArray;
 import chapter3.variantB.entity.Parent;
 import chapter3.variantB.exception.ErrorMessage;
 
 public class Util {
 	
-	
-	public Parent addition(final Parent el1, final Parent el2) throws MyException{
-		if(el1==null || el2==null || !(el1.getClass()==el2.getClass())) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+	/**
+	 * Addition two object that extends from Parent class
+	 * 
+	 * @param el1 - first object
+	 * @param el2 - second object
+	 * @return - object that is result of addition
+	 * @throws MyException - throws if incorrect parameters
+	 */
+	public static Fraction addition(final MyArray objArr, int first, int second) throws MyException{
+		
+		//check parameters
+		if(objArr==null || (objArr.getArray().getClass()!=Fraction[].class) || first<0 || second<0) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
-		Parent result=null;
-		if(el1.getClass()==Fraction.class) {
-			result=additionFraction(el1, el2);
-		}
+		Fraction result=null;
+		
+		//extract array
+		Fraction[] array=(Fraction[])objArr.getArray();
+		
+		//addition
+		result=additionFraction(array[first], array[second]);
 		return result;
 	}
 	
@@ -28,7 +43,7 @@ public class Util {
 	 */
 	public Parent subtraction(final Parent el1, final Parent el2) throws MyException{
 		if(el1==null || el2==null || !(el1.getClass()==el2.getClass())) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Parent result=null;
 		if(el1.getClass()==Fraction.class) {
@@ -46,7 +61,7 @@ public class Util {
 	 */
 	public Parent multiplication(final Parent el1, final Parent el2) throws MyException{
 		if(el1==null || el2==null || !(el1.getClass()==el2.getClass())) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Parent result=null;
 		if(el1.getClass()==Fraction.class) {
@@ -62,7 +77,29 @@ public class Util {
 	 * @return- object that contains addition of two objects
 	 * @throws MyException - exception described in my application
 	 */
-	public Parent division(final Parent el) throws MyException;
+	//public Parent division(final Parent el) throws MyException;
+	
+	/**
+	 * Fill Fraction array. 
+	 * 
+	 * @return filled array
+	 */
+	public static MyArray fillFractionArray(MyArray array) {
+		int size=10;
+		Fraction[] result=new Fraction[size];
+		for(int i=0; i<size; i++) {
+			result[i]=new Fraction();
+		}
+		final Random random=new Random();
+		for(int i=0; i<size; i++) {
+			result[i].setM(random.nextInt(100));
+			result[i].setN(random.nextInt(100));
+		}
+		array.setArray(result);
+		array.setSize(size);
+		return array;
+		
+	}
 	
 	//====== Helping methods ================
 	
@@ -74,9 +111,9 @@ public class Util {
 	 * @return - result of addition
 	 * @throws MyException - throws if parameter is incorrect
 	 */
-	private Fraction additionFraction(final Parent el1, final Parent el2) throws MyException {
+	private static Fraction additionFraction(final Parent el1, final Parent el2) throws MyException {
 		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Fraction result=new Fraction();
 		Fraction first=(Fraction)el1;
@@ -102,7 +139,7 @@ public class Util {
 	 */
 	private Fraction subtractionFraction(final Parent el1, final Parent el2) throws MyException {
 		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Fraction result=new Fraction();
 		Fraction first=(Fraction)el1;
@@ -141,7 +178,7 @@ public class Util {
 	 */
 	private Fraction multiplicationFraction(final Parent el1, final Parent el2) throws MyException {
 		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Fraction result=new Fraction();
 		Fraction first=(Fraction)el1;
@@ -188,16 +225,16 @@ public class Util {
 	 * @return - least common division for two given denominators
 	 * @throws MyException - throws if parameters less than 0
 	 */
-	private int leastCommonDivisor (int first, int second) throws MyException {
+	private static int leastCommonDivisor (int first, int second) throws MyException {
 		if (first<=0 || second<=0) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		int res=0;
 		if(first%second==0) {
 			res=first;
 		}else if(second%first==0) {
 			res=second;
-		}else if(isSimpleNumber(first) && isSimpleNumber(second)){
+		}else if(isSimpleNumber(first) || isSimpleNumber(second)){
 			res=first*second;
 		}else {
 			int limit=first<second ? first : second;
@@ -218,9 +255,9 @@ public class Util {
 	 * @return - true if number simple, false if not
 	 * @throws MyException - throws if parameter less than 0
 	 */
-	private boolean isSimpleNumber(int number) throws MyException {
+	private static boolean isSimpleNumber(final int number) throws MyException {
 		if(number<=0) {
-			throw new MyException(ErrorMessage.WRONG_PARAMETER);
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		boolean result=true;
 		if(number==1) {
@@ -229,6 +266,7 @@ public class Util {
 		for(int i=2; i<number; i++) {
 			if(number%i==0) {
 				result=false;
+				return result;
 			}
 		}
 		return result;
