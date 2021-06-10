@@ -3,6 +3,7 @@ package chapter3.variantB;
 import java.util.Random;
 
 import chapter3.variantB.exception.MyException;
+import chapter3.variantB.entity.Complex;
 import chapter3.variantB.entity.Fraction;
 import chapter3.variantB.entity.MyArray;
 import chapter3.variantB.entity.Parent;
@@ -10,90 +11,19 @@ import chapter3.variantB.exception.ErrorMessage;
 
 public class Util {
 	
-	/**
-	 * Addition two object that extends from Parent class
-	 * 
-	 * @param el1 - first object
-	 * @param el2 - second object
-	 * @return - object that is result of addition
-	 * @throws MyException - throws if incorrect parameters
-	 */
-	public static Fraction addition(final MyArray objArr, int first, int second) throws MyException{
-		
-		//check parameters
-		if(objArr==null || (objArr.getArray().getClass()!=Fraction[].class) || first<0 || second<0) {
-			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
-		}
-		Fraction result=null;
-		
-		//extract array
-		Fraction[] array=(Fraction[])objArr.getArray();
-		
-		//addition
-		result=additionFraction(array[first], array[second]);
-		return result;
-	}
-	
-	/**
-	 * Subtractions two objects that extends from Parent class.
-	 * 
-	 * @param el - object that was added to this object
-	 * @return- object that contains addition of two objects
-	 * @throws MyException - throws if parameter is incorrect
-	 */
-	public Parent subtraction(final Parent el1, final Parent el2) throws MyException{
-		if(el1==null || el2==null || !(el1.getClass()==el2.getClass())) {
-			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
-		}
-		Parent result=null;
-		if(el1.getClass()==Fraction.class) {
-			subtractionFraction(el1, el2);
-		}
-		return result;
-	}
-	
-	/**
-	 * Abstract method for multiplication two objects that extends from Parent class.
-	 * 
-	 * @param el - object that was added to this object
-	 * @return- object that contains addition of two objects
-	 * @throws MyException - throws if parameter is incorrect
-	 */
-	public Parent multiplication(final Parent el1, final Parent el2) throws MyException{
-		if(el1==null || el2==null || !(el1.getClass()==el2.getClass())) {
-			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
-		}
-		Parent result=null;
-		if(el1.getClass()==Fraction.class) {
-			multiplicationFraction(el1, el2);
-		}
-		return result;
-	}
-	
-	/**
-	 * Abstract method for division two objects that extends from Parent class.
-	 * 
-	 * @param el - object that was added to this object
-	 * @return- object that contains addition of two objects
-	 * @throws MyException - exception described in my application
-	 */
-	//public Parent division(final Parent el) throws MyException;
-	
+	//======================= FILLING ARRAY ==================================
 	/**
 	 * Fill Fraction array. 
 	 * 
-	 * @return filled array
+	 * @param array - MyArray object that need to fill
+	 * @return - MyArray object with filled array
 	 */
 	public static MyArray fillFractionArray(MyArray array) {
 		int size=10;
 		Fraction[] result=new Fraction[size];
-		for(int i=0; i<size; i++) {
-			result[i]=new Fraction();
-		}
 		final Random random=new Random();
 		for(int i=0; i<size; i++) {
-			result[i].setM(random.nextInt(100));
-			result[i].setN(random.nextInt(100));
+			result[i]=new Fraction((1+random.nextInt(10)), (1+random.nextInt(10)));
 		}
 		array.setArray(result);
 		array.setSize(size);
@@ -101,8 +31,25 @@ public class Util {
 		
 	}
 	
-	//====== Helping methods ================
-	
+	/**
+	 * Fill complex array
+	 * 
+	 * @param array - MyArray object that need to fill
+	 * @return - MyArray object with filled array
+	 */
+	public static MyArray fillComplexArray(MyArray array) {
+		int size=10;
+		Complex[] result=new Complex[size];
+		final Random random=new Random();
+		for(int i=0; i<size; i++) {
+			result[i]=new Complex((1+random.nextInt(10)), (1+random.nextInt(10)));
+		}
+		array.setArray(result);
+		array.setSize(size);
+		return array;
+	}
+
+	//======================= HELPING METHODS ==================================
 	/**
 	 * Addition two Fraction objects
 	 * 
@@ -111,8 +58,8 @@ public class Util {
 	 * @return - result of addition
 	 * @throws MyException - throws if parameter is incorrect
 	 */
-	private static Fraction additionFraction(final Parent el1, final Parent el2) throws MyException {
-		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
+	public static Fraction additionFraction(final Parent el1, final Parent el2) throws MyException {
+		if(el1==null || el2==null || el1.getClass()!=Fraction.class || el2.getClass()!=Fraction.class) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Fraction result=new Fraction();
@@ -126,6 +73,28 @@ public class Util {
 			result.setM(first.getM()*d/first.getN()+second.getM()*d/second.getN());
 			result.setN(d);
 		}
+		return reduceFraction(result);
+	}
+	
+	/**
+	 * Addition two Complex objects
+	 * 
+	 * @param el1 - first element
+	 * @param el2 -second element
+	 * @return - Complex object with result of addition
+	 * @throws MyException - throws if parameters is incorrect
+	 */
+	public static Complex additionComplex(final Parent el1, final Parent el2) throws MyException {
+		//check parameters
+		if(el1==null || el2==null || el1.getClass()!=Complex.class || el2.getClass()!=Complex.class) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//addition
+		Complex result=new Complex();
+		Complex first=(Complex)el1;
+		Complex second=(Complex)el2;
+		result.setX(first.getX()+second.getX());
+		result.setY(first.getY()+second.getY());
 		return result;
 	}
 	
@@ -137,8 +106,8 @@ public class Util {
 	 * @return - result of subtractions
 	 * @throws MyException - throws if parameter is incorrect
 	 */
-	private Fraction subtractionFraction(final Parent el1, final Parent el2) throws MyException {
-		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
+	public static Fraction subtractionFraction(final Parent el1, final Parent el2) throws MyException {
+		if(el1==null || el2==null || el1.getClass()!=Fraction.class || el2.getClass()!=Fraction.class) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
 		Fraction result=new Fraction();
@@ -150,19 +119,11 @@ public class Util {
 		int secondZnam=second.getN();
 		
 		if(firstZnam==secondZnam) {
-			if(firstCh>secondCh) {
-				result.setM(firstCh-secondCh);
-			}else {
-				result.setM(secondCh-firstCh);
-			}
+			result.setM(firstCh-secondCh);
 			result.setN(firstZnam);
 		}else {
 			int d=leastCommonDivisor(firstZnam, secondZnam);
-			if(firstCh>secondCh) {
-				result.setM(firstCh*(d/firstZnam)-secondCh*(d/secondZnam));
-			}else {
-				result.setM(secondCh*(d/secondZnam)-firstCh*(d/firstZnam));
-			}
+			result.setM(firstCh*(d/firstZnam)-secondCh*(d/secondZnam));
 			result.setN(d);
 		}
 		return result;
@@ -176,7 +137,7 @@ public class Util {
 	 * @return - result of multiplication of two fractions
 	 * @throws MyException - throws if parameter is incorrect
 	 */
-	private Fraction multiplicationFraction(final Parent el1, final Parent el2) throws MyException {
+	public static Fraction multiplicationFraction(final Parent el1, final Parent el2) throws MyException {
 		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
@@ -191,9 +152,22 @@ public class Util {
 		result.setM(firstCh*secondCh);
 		result.setN(firstZnam*secondZnam);
 		
-		result=reduceFraction(result);
+		return reduceFraction(result);
+	}
+	
+	public static Fraction divisionFraction(final Parent el1, final Parent el2) throws MyException {
+		//check parameters
+		if(el1==null || el2==null || !(el1.getClass()==Fraction.class) || !(el2.getClass()==Fraction.class)) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		Fraction result=new Fraction();
+		Fraction first=(Fraction)el1;
+		Fraction second=(Fraction)el2;
 		
-		return result;
+		result.setM(first.getM()*second.getN());
+		result.setN(second.getM()*first.getN());
+		
+		return reduceFraction(result);
 	}
 	
 	/**
@@ -202,7 +176,7 @@ public class Util {
 	 * @param ob - fraction
 	 * @return - reduced fraction
 	 */
-	private Fraction reduceFraction(final Fraction ob) {
+	private static Fraction reduceFraction(final Fraction ob) {
 		Fraction result=ob;
 		int ch=result.getM();
 		int znam=result.getN();
@@ -225,7 +199,7 @@ public class Util {
 	 * @return - least common division for two given denominators
 	 * @throws MyException - throws if parameters less than 0
 	 */
-	private static int leastCommonDivisor (int first, int second) throws MyException {
+	private static int leastCommonDivisor (final int first,final int second) throws MyException {
 		if (first<=0 || second<=0) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
 		}
@@ -237,12 +211,11 @@ public class Util {
 		}else if(isSimpleNumber(first) || isSimpleNumber(second)){
 			res=first*second;
 		}else {
-			int limit=first<second ? first : second;
-			for(int i=2; i<=limit; i++) {
-				if(first%i==0 && second%i==0) {
-					res=i*(first/i)*(second/i);
-					break;
-				}
+			int gcf=greatestCommonFactor(first, second);
+			if(gcf==0) {
+				res=first*second;
+			}else {
+				res=gcf*(first/gcf)*(second/gcf);
 			}
 		}
 		return res;
@@ -267,6 +240,33 @@ public class Util {
 			if(number%i==0) {
 				result=false;
 				return result;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Finds greatest common factor for two given numbers
+	 * 
+	 * @param first - first number
+	 * @param second - second number
+	 * @return - greatest common factor
+	 * @throws MyException - throws if parameter less than 0
+	 */
+	private static int greatestCommonFactor(final int first,final int second) throws MyException{
+		//check parameters
+		if(first<=0 || second<=0) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//fins greatest common factor
+		int f=first;
+		int s=second;
+		int result=0;
+		int limit=(f<s ? f : s);
+		for(int i=limit; i>2; i--) {
+			if(f%i==0 && s%i==0) {
+				result=i;
+				break;
 			}
 		}
 		return result;

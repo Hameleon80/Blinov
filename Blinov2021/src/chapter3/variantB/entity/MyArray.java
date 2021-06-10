@@ -1,5 +1,6 @@
 package chapter3.variantB.entity;
 
+import chapter3.variantB.Util;
 import chapter3.variantB.exception.ErrorMessage;
 import chapter3.variantB.exception.MyException;
 
@@ -125,5 +126,96 @@ public class MyArray {
 			System.out.print("[" + arrElement + "] ");
 		}
 		System.out.println("\n");
+	}
+	
+	/**
+	 * Addition two object that extends from Parent class
+	 * 
+	 * @param first - index of first object
+	 * @param second - index of second object
+	 * @return - Parent object that is result addition of two objects
+	 * @throws MyException - throws if incorrect parameters
+	 */
+	public Parent addition(int first, int second) throws MyException{
+		
+		//check parameters
+		if(this.array==null || size==0 || first<0 || second<0 || first>size || second>size) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		
+		//addition
+		Parent result=null;
+		if(array.getClass()==Fraction[].class) {
+			result=Util.additionFraction(this.array[first], this.array[second]);
+		}else if(array.getClass()==Complex[].class) {
+			result=Util.additionComplex(this.array[first], this.array[second]);
+		}
+		return result;
+	}
+	
+	/**
+	 * Subtractions two objects that extends from Parent class.
+	 * 
+	 * @param first - index of first object
+	 * @param second - index of second object
+	 * @return- Parent object that is result subtraction of two objects
+	 * @throws MyException - throws if parameter is incorrect
+	 */
+	public Parent subtraction(int first, int second) throws MyException{
+		//check parameters
+		if(this.array==null || size==0 || first<0 || second<0 || first>size || second>size) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		
+		//subtraction
+		Parent result=null;
+		if(array.getClass()==Fraction[].class) {
+			result=Util.subtractionFraction(this.array[first], this.array[second]);
+		}
+		return result;
+	}
+	
+	/**
+	 * Multiplication two objects that extends from Parent class.
+	 * 
+	 * @param first - index of first object
+	 * @param second - index of second object
+	 * @return- Parent object that is result multiplication of two objects
+	 * @throws MyException - throws if parameter is incorrect
+	 */
+	public Parent multiplication(int first, int second) throws MyException{
+		//check parameters
+		if(this.array==null || size==0 || first<0 || second<0 || first>size || second>size) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		
+		//multiplication
+		Parent result=null;
+		if(array.getClass()==Fraction[].class) {
+			result=Util.multiplicationFraction(array[first], array[second]);
+		}
+		return result;
+	}
+	
+	/**
+	 * Division two objects that extends from Parent class.
+	 * 
+	 * @param first - index of first object
+	 * @param second - index of second object
+	 * @return- Parent object that is result division of two objects
+	 * @throws MyException - exception described in my application
+	 */
+	public Parent division(int first, int second) throws MyException{
+		//check parameters
+		if(this.array==null || size==0 || first<0 || second<0 || first>size || second>size) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+
+		//division
+		Parent result=null;
+		if(array.getClass()==Fraction[].class) {
+			result=Util.divisionFraction(array[first], array[second]);
+		}
+		return result;
 	}
 }
