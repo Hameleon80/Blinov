@@ -1,10 +1,10 @@
-package chapter4.variantA.bisnesLogic;
+package chapter4.variantA.car.bisnesLogic;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import chapter4.variantA.entity.Car;
-import chapter4.variantA.entity.Wheel;
+import chapter4.variantA.car.entity.Car;
+import chapter4.variantA.car.entity.Wheel;
 import chapter4.variantA.exception.ErrorMessage;
 import chapter4.variantA.exception.MyException;
 

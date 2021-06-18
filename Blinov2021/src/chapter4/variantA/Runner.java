@@ -2,9 +2,9 @@ package chapter4.variantA;
 
 import java.util.ArrayList;
 
-import chapter4.variantA.entity.Car;
-import chapter4.variantA.entity.Wheel;
-import chapter4.variantA.entity.Engine;
+import chapter4.variantA.car.entity.Car;
+import chapter4.variantA.car.entity.Engine;
+import chapter4.variantA.car.entity.Wheel;
 
 public class Runner {
 

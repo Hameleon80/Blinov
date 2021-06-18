@@ -1,4 +1,4 @@
-package chapter4.variantA.entity;
+package chapter4.variantA.car.entity;
 
 /**
  * @author јхтырскийёра
