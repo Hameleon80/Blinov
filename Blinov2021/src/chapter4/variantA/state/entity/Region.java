@@ -1,20 +1,23 @@
 package chapter4.variantA.state.entity;
 
+import java.util.ArrayList;
+
 /**
+ * Class that describes entity region.
+ *
  * @author јхтырскийёра
  *
- * Class that describes entity region.
  */
 public class Region extends AreaEntity {
 	private String regionCenter;
-	private District[] districts;
+	private ArrayList<District> districts;
 
 //Constructors
 	public Region() {
 		super();
 	}
 
-	public Region(long id, String name, double area, int population, String regionCenter, District[] districts) {
+	public Region(long id, String name, double area, int population, String regionCenter, ArrayList<District> districts) {
 		super(id, name, area, population);
 		this.regionCenter=regionCenter;
 		this.districts=districts;
@@ -29,20 +32,20 @@ public class Region extends AreaEntity {
 		this.regionCenter = regionCenter;
 	}
 	
-	public District[] getDistricts() {
+	public ArrayList<District> getDistricts() {
 		return districts;
 	}
 
-	public void setDistricts(District[] districts) {
+	public void setDistricts(ArrayList<District> districts) {
 		this.districts = districts;
 	}
 
-	//Overrides methods
+//Overrides methods
 	@Override
 	public String toString() {
 		return "District: " + super.toString() + 
 				"district main city: " + this.regionCenter +
-				"districts: " + districts;
+				"districts: " + this.districts;
 	}
 	
 	@Override
@@ -54,7 +57,7 @@ public class Region extends AreaEntity {
 			return false;
 		}
 		Region temp=(Region) obj;
-		if(super.equals((AreaEntity)temp)==false || this.regionCenter.equals(temp.getRegionCenter())==false) {
+		if(super.equals((AreaEntity)temp)==false || this.regionCenter.equals(temp.getRegionCenter())==false || this.districts.equals(temp.getDistricts())==false) {
 			return false;
 		}
 		return true;
@@ -62,6 +65,56 @@ public class Region extends AreaEntity {
 	
 	@Override
 	public int hashCode() {
-		return super.hashCode() + this.regionCenter.hashCode();
+		return super.hashCode() + this.regionCenter.hashCode() + this.districts.hashCode();
+	}
+	
+//Other methods
+	/**
+	 * Appends specified object in the end of array.
+	 * 
+	 * @param district - object to be appended
+	 * @return - {@code true} if object appended {@code false} if not
+	 */
+	public boolean addDistrict(District district) {
+		//checking
+		if(district==null) {
+			return false;
+		}
+		//adding
+		this.districts.add(district);
+		return true;
+	}
+	
+	/**
+	 * Inserts specified object in specified position in the array.
+	 * 
+	 * @param pos - position in which specified object to be inserted.
+	 * @param district - object to be inserted in position {@code pos}.
+	 * @return - {@code true} if object appended {@code false} if not.
+	 */
+	public boolean addDistrict(int pos, District district) {
+		//checking
+		if(pos<0 || pos>this.districts.size() || district==null) {
+			return false;
+		}
+		//adding
+		this.districts.add(pos, district);
+		return true;
+	}
+	
+	/**
+	 * Removes object from array from specified position
+	 * 
+	 * @param pos - position in which object to be removed.
+	 * @return - {@code true} if object appended {@code false} if not.
+	 */
+	public boolean reove(int pos) {
+		//checking
+		if(pos<0 || pos<this.districts.size()) {
+			return false;
+		}
+		//removing
+		this.districts.remove(pos);
+		return true;
 	}
 }

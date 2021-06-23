@@ -57,7 +57,7 @@ public class District extends AreaEntity {
 			return false;
 		}
 		District temp=(District) obj;
-		if(super.equals((AreaEntity)temp)==false || this.districtCenter.equals(temp.getDistrictCenter())==false || this.cities.equals(temp.cities)==false) {
+		if(super.equals((AreaEntity)temp)==false || this.districtCenter.equals(temp.getDistrictCenter())==false || this.cities.equals(temp.getCities())==false) {
 			return false;
 		}
 		return true;
