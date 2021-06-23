@@ -117,4 +117,15 @@ public class Region extends AreaEntity {
 		this.districts.remove(pos);
 		return true;
 	}
+	
+	/**
+	 * Prints all cities that contain in region
+	 */
+	public void printCities() {
+		System.out.println(this.getName() + ":");
+		for(District arrElement: this.districts) {
+			System.out.print(" ");
+			arrElement.printCities();
+		}
+	}
 }

@@ -116,4 +116,16 @@ public class State extends AreaEntity{
 		this.regions.remove(pos);
 		return true;
 	}
+	
+	/**
+	 * Prints all cities in state.
+	 */
+	public void printStateCities() {
+		System.out.println(this.getName() + ":");{
+			for(Region arrElement: regions) {
+				System.out.print(" ");
+				arrElement.printCities();
+			}
+		}
+	}
 }

@@ -117,4 +117,14 @@ public class District extends AreaEntity {
 		this.cities.remove(pos);
 		return true;
 	}
+	
+	/**
+	 * Prints cities that contains in district
+	 */
+	public void printCities() {
+		System.out.println(this.getName() + ":");
+		for(City arrElement: this.cities) {
+			System.out.println(" " + arrElement.getName());
+		}
+	}
 }
