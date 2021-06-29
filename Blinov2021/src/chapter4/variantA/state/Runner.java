@@ -1,18 +1,18 @@
 package chapter4.variantA.state;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import chapter4.variantA.state.entity.City;
+import chapter4.variantA.exception.MyException;
+import chapter4.variantA.state.entity.State;
 
 public class Runner {
 	public static void main(String[] args) {
-		ArrayList<City> cities=null;
+		State state=null;
 		try {
-			cities=Util.getStateFromFile("src/chapter4/variantA/state/cities.txt");
-		} catch (IOException e) {
+			state=Util.getStateFromFile("src/chapter4/variantA/state/state.txt");
+		} catch (IOException | MyException e) {
 			e.printStackTrace();
 		}
-		System.out.println(cities);
+		System.out.println(state);
 	}
 }

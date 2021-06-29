@@ -50,8 +50,8 @@ public class City extends AreaEntity {
 //Override methods
 	@Override
 	public String toString() {
-		return "City: " + super.toString() + 
-				"capital: " + this.isCapital;
+		return "\n	City: " + super.toString() + 
+				(this.isCapital ? " capital" : "");
 	}
 	
 	@Override

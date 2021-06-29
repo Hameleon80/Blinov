@@ -10,26 +10,36 @@ import java.util.ArrayList;
  */
 public class District extends AreaEntity {
 	private String districtCenter;
+	private long regionId; 
 	private ArrayList<City> cities;
 
-//Constructors
+	//Constructors
 	public District() {
 		super();
 	}
 
-	public District(long id, String name, double area, int population, String districtCenter, ArrayList<City> cities) {
+	public District(long id, String name, double area, int population, String districtCenter, long regionId, ArrayList<City> cities) {
 		super(id, name, area, population);
 		this.districtCenter=districtCenter;
+		this.regionId=regionId;
 		this.cities=cities;
 	}
 
-//Getters and Setters
+	//Getters and Setters
 	public String getDistrictCenter() {
 		return districtCenter;
 	}
 
 	public void setDistrictCenter(String districtCenter) {
 		this.districtCenter = districtCenter;
+	}
+
+	public long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(long regionId) {
+		this.regionId = regionId;
 	}
 	
 	public ArrayList<City> getCities() {
@@ -38,16 +48,24 @@ public class District extends AreaEntity {
 
 	public void setCities(ArrayList<City> cities) {
 		this.cities = cities;
+		double area=0;
+		int population=0;
+		for(City arrElement: cities) {
+			area+=arrElement.getArea();
+			population+=arrElement.getPopulation();
+		}
+		this.setArea(area);
+		this.setPopulation(population);
 	}
 
-//Overriding methods
+	//Overriding methods
 	@Override
 	public String toString() {
-		return "District: " + super.toString() + 
+		return "\n District: " + super.toString() + 
 				"district main city: " + this.districtCenter +
-				"cities: " + this.cities.toString();
+				this.cities.toString();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj==this) {
@@ -57,74 +75,14 @@ public class District extends AreaEntity {
 			return false;
 		}
 		District temp=(District) obj;
-		if(super.equals((AreaEntity)temp)==false || this.districtCenter.equals(temp.getDistrictCenter())==false || this.cities.equals(temp.getCities())==false) {
+		if(super.equals((AreaEntity)temp)==false || this.districtCenter.equals(temp.getDistrictCenter())==false || this.cities.equals(temp.getCities())==false || this.regionId!=temp.getRegionId()) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return super.hashCode() + this.districtCenter.hashCode() + this.cities.hashCode();
-	}
-	
-//Other methods
-	
-	/**
-	 * Appends the specified element to the end of this list.
-	 * 
-	 * @param city - object to be appended to the list
-	 * @return - {@code true} if object append {@code false} if not
-	 */
-	public boolean addCity(City city) {
-		//check
-		if(city==null) {
-			return false;
-		}
-		this.cities.add(city);
-		return true;
-	}
-	
-	/**
-	 * Inserts the specified element at the specified position in the list.
-     * 
-	 * @param pos - position at witch specified object is to be inserted.
-	 * @param city - object to be inserted
-	 * @return - {@code true} if object append {@code false} if not
-	 */
-	public boolean addCity(int pos, City city) {
-		//checking
-		if(city==null || pos<0 || pos>this.cities.size()) {
-			return false;
-		}
-		//adding
-		this.cities.add(pos, city);
-		return true;
-	}
-	
-	/**
-	 * Removes object with specified position of the array.
-	 * 
-	 * @param pos - position at witch specified object is to be removed.
-	 * @return - {@code true} if object removed {@code false} if not.
-	 */
-	public boolean remove(int pos) {
-		//checking
-		if(pos<0 || pos>this.cities.size()) {
-			return false;
-		}
-		//removing
-		this.cities.remove(pos);
-		return true;
-	}
-	
-	/**
-	 * Prints cities that contains in district
-	 */
-	public void printCities() {
-		System.out.println(this.getName() + ":");
-		for(City arrElement: this.cities) {
-			System.out.println(" " + arrElement.getName());
-		}
+		return super.hashCode() + this.districtCenter.hashCode() + (int)(this.regionId) + this.cities.hashCode();
 	}
 }

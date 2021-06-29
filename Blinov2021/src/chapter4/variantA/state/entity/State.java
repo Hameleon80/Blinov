@@ -9,26 +9,26 @@ import java.util.ArrayList;
  *
  */
 public class State extends AreaEntity{
-	private City capital;
+	private String capital;
 	private ArrayList<Region> regions;
-	
-// Constructors
+
+	// Constructors
 	public State() {
 		super();
 	}
 
-	public State(long id, String name, double area, int population, City capital, ArrayList<Region> regions) {
+	public State(long id, String name, double area, int population, String capital, ArrayList<Region> regions) {
 		super(id, name, area, population);
 		this.capital=capital;
 		this.regions=regions;
 	}
 
-//Getters and Setters
-	public City getCapital() {
+	//Getters and Setters
+	public String getCapital() {
 		return capital;
 	}
 
-	public void setCapital(City capital) {
+	public void setCapital(String capital) {
 		this.capital = capital;
 	}
 
@@ -38,16 +38,24 @@ public class State extends AreaEntity{
 
 	public void setRegions(ArrayList<Region> regions) {
 		this.regions = regions;
+		double tempArea=0.0;
+		int pop=0;
+		for(Region arrElement: regions) {
+			tempArea+=arrElement.getArea();
+			pop+=arrElement.getPopulation();
+		}
+		this.setArea(tempArea);
+		this.setPopulation(pop);
 	}
-	
-//Overriding methods
+
+	//Overriding methods
 	@Override
 	public String toString() {
 		return super.toString() + 
-				"Capital: " + this.capital + 
-				"Regions: " + this.regions;
+				" Capital: " + this.capital + 
+				this.regions;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if(this==obj) {
@@ -62,70 +70,9 @@ public class State extends AreaEntity{
 		}
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return super.hashCode() + this.capital.hashCode() + this.regions.hashCode();
-	}
-	
-//Other methods
-	/**
-	 * Appends specified object in the end of array.
-	 * 
-	 * @param region - object to appended
-	 * @return - {@code true} if object was appended {@code false} if not
-	 */
-	public boolean addRegion(Region region) {
-		//checking
-		if(region==null) {
-			return false;
-		}
-		//adding
-		regions.add(region);
-		return true;
-	}
-	
-	/**
-	 * Inserts specified object in specified position in the array.
-	 * 
-	 * @param pos - position in which object to be inserted.
-	 * @param region - object to be inserted in position {@code pos}.
-	 * @return - {@code true} if object was appended {@code false} if not
-	 */
-	public boolean addRegion(int pos, Region region) {
-		//checking
-		if(pos<0 || pos>this.regions.size() || region==null) {
-			return false;
-		}
-		this.regions.add(pos, region);
-		return true;
-	}
-	
-	/**
-	 * Removes object from specified position.
-	 * 
-	 * @param pos - position from which object to be removed
-	 * @return - {@code true} if object was removed {@code false} if not
-	 */
-	public boolean remove(int pos) {
-		//checking
-		if(pos<0 || pos>this.regions.size()) {
-			return false;
-		}
-		//removing
-		this.regions.remove(pos);
-		return true;
-	}
-	
-	/**
-	 * Prints all cities in state.
-	 */
-	public void printStateCities() {
-		System.out.println(this.getName() + ":");{
-			for(Region arrElement: regions) {
-				System.out.print(" ");
-				arrElement.printCities();
-			}
-		}
 	}
 }

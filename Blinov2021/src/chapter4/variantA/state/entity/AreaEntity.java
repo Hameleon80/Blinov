@@ -60,8 +60,8 @@ public class AreaEntity {
 	@Override
 	public String toString() {
 		return this.name +
-				"\n area: " + this.area +
-				"\n population: " + this.population;
+				" area: " + this.area +
+				" population: " + this.population;
 	}
 	
 	@Override
