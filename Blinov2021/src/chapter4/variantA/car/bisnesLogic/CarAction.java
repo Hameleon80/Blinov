@@ -17,7 +17,7 @@ public class CarAction {
 	 * @return - object car from parameter with sets fields
 	 * @throws MyException - throws if incorrect parameter
 	 */
-	public Car drive(Car car) throws MyException {
+	public static Car drive(Car car) throws MyException {
 		//check parameters
 		if(car==null) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
@@ -36,7 +36,7 @@ public class CarAction {
 	 * @return - object car from parameter with sets field fuel.
 	 * @throws MyException - throws if incorrect parameters
 	 */
-	public Car refuel(Car car, int fuel) throws MyException {
+	public static Car refuel(Car car, int fuel) throws MyException {
 		//check parameters
 		if(car==null || fuel<1) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
@@ -54,7 +54,7 @@ public class CarAction {
 	 * @return - object car from parameter
 	 * @throws MyException
 	 */
-	public Car changeWheel(Car car, int numberWheel,  Wheel wheel) throws MyException {
+	public static Car changeWheel(Car car, int numberWheel,  Wheel wheel) throws MyException {
 		//check parameters
 		if(car==null || numberWheel<1 || numberWheel>car.getWheels().size() || wheel==null) {
 			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
