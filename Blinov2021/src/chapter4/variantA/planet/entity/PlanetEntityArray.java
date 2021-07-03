@@ -17,4 +17,17 @@ public class PlanetEntityArray<T extends PlanetParentEntity> {
 	public PlanetEntityArray (int capacity){
 		array=new ArrayList<T>(capacity);
 	}
+	
+	//Get and set
+	public T get(int index) {
+		return array.get(index);
+	}
+	
+	public T set(int index, T element) {
+		return array.set(index, element);
+	}
+	
+	public boolean add(T element) {
+		return array.add(element);
+	}
 }

@@ -6,5 +6,6 @@ import chapter4.variantA.planet.entity.PlanetEntityArray;
 public class Runner {
 	public static void main(String[] args) {
 		PlanetEntityArray<Mainland> mainlands=new PlanetEntityArray<>();
+		System.out.println(mainlands);
 	}
 }

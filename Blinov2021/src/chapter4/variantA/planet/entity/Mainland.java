@@ -1,24 +1,24 @@
 package chapter4.variantA.planet.entity;
 
 public class Mainland extends PlanetParentEntity{
-	private double population;
+	private long population;
 	private double dryLand;
 	
 	//Constructors
 	public Mainland () {}
 
-	public Mainland(long id, String name, double area, double population, double dryLand) {
+	public Mainland(long id, String name, double area, long population, double dryLand) {
 		super(id, name, area);
 		this.population = population;
 		this.dryLand = dryLand;
 	}
 	
 	//Getters and setters
-	public double getPopulation() {
+	public long getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(double population) {
+	public void setPopulation(long population) {
 		this.population = population;
 	}
 
