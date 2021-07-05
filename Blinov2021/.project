@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>Blinov2021</name>
+			<value>file:/D:/Yura/111/works/Blinov2021</value>
+		</variable>
+	</variableList>
 </projectDescription>
