@@ -1,22 +1,22 @@
 package chapter4.variantA.planet.entity;
 
 public class Ocean extends PlanetParentEntity {
-	private double volume;
+	private long volume;
 	
 	//Constructors
 	public Ocean() {}
 
-	public Ocean(long id, String name, double area, double volume) {
+	public Ocean(long id, String name, double area, long volume) {
 		super(id, name, area);
 		this.volume = volume;
 	}
 	
 	//Getters and setters
-	public double getVolume() {
+	public long getVolume() {
 		return volume;
 	}
 
-	public void setVolume(double volume) {
+	public void setVolume(long volume) {
 		this.volume = volume;
 	}
 	

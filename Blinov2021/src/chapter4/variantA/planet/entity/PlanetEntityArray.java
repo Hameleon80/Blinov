@@ -39,6 +39,14 @@ public class PlanetEntityArray<T extends PlanetParentEntity> implements Iterable
 		return array.set(index, element);
 	}
 	
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	//Overridden methods 
 	@Override
 	public String toString() {
