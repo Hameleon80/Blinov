@@ -99,7 +99,7 @@ public class PlanetEntityArray<T extends PlanetParentEntity> implements Iterable
 		
 		@Override
 		public boolean hasNext() {
-			return cursor!=size;
+			return cursor<=size;
 		}
 
 		@SuppressWarnings("unchecked")
