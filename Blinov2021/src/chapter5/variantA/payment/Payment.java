@@ -23,8 +23,27 @@ public class Payment {
 		}
 	}
 	
+	//================== Overridden methods ==========================
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<=capacity; i++) {
+			sb.append(basket[i]).append("\n");
+		}
+		return sb.toString();
+	}
+	
 	//================== Methods ==========================
 	
+	/**
+	 * Added element in {@code basket}.Element creates based on the specified parameters.
+	 * 
+	 * @param id - element id
+	 * @param name - element name
+	 * @param price - element price
+	 * @throws MyException - throws if incorrect parameters
+	 */
 	public void addProduct(long id, String name, double price) throws MyException {
 		//parameter check
 		if(id<0 || name==null || name.isEmpty() || price<0) {
@@ -44,7 +63,103 @@ public class Payment {
 		basket[capacity]=spesifiedProduct;
 	}
 	
+	/**
+	 * Added specified element to array {@code basket}.
+	 * 
+	 * @param product - element that need to add.
+	 * @throws MyException - throws if incorrect parameters.
+	 */
+	public void addProduct(Product product) throws MyException {
+		//parameter check
+		if(product==null) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//addition
+		if(capacity!=size) {
+			size+=stepSize;
+			Product[] tempProducts=new Product[size];
+			for(int i=0; i<capacity; i++) {
+				tempProducts[i]=basket[i];
+			}
+			basket=tempProducts;
+		}
+		capacity++;
+		basket[capacity]=product;
+	}
 	
+	/**
+	 * Removes last element in array {@code basket}
+	 * 
+	 * @throws MyException - throws if array is empty.
+	 */
+	public void remove() throws MyException {
+		if(capacity>0) {
+			basket[capacity]=null;
+			capacity--;
+		} else {
+			throw new MyException(ErrorMessage.NO_ELEMENT_TO_DELETE);
+		}
+	}
+	
+	/**
+	 * Removes element of array from specified position.
+	 * 
+	 * @param pos - position element that need to remove.
+	 * @return - removed element
+	 * @throws MyException - throws if incorrect parameter
+	 */
+	public Product remove(int pos) throws MyException {
+		//parameter check
+		if(pos<0 || pos>capacity) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//removing
+		Product result=basket[pos-1];
+		basket[pos-1]=null;
+		removeEmptyElements();
+		return result;
+	}
+	
+	//================== Helper methods ==================
+	/**
+	 * Removes empty elements from array.
+	 * 
+	 * @throws MyException
+	 */
+	private void removeEmptyElements() throws MyException {
+		Product[] temp=new Product[size];
+		for(int i=0; i<=capacity; i++) {
+			if(basket[i]==null) {
+				temp=copyArraySkipNullElements(temp, basket);
+			}
+		}
+		basket=temp;
+		capacity--;
+	}
+	
+	/**
+	 * Copy array from {@code from} to {@code to}. When copying, skip empty elements. 
+	 * 
+	 * @param to - array copy result
+	 * @param from - source array
+	 * @return - copy array {@code from} without null elements
+	 * @throws MyException - throws if incorrect parameters
+	 */
+	private Product[] copyArraySkipNullElements(Product[] to, Product[] from) throws MyException {
+		//parameter check
+		if(to.length==0 || from.length==0 || to==null || from==null) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//copy
+		for(int i=0, j=0; i<to.length; i++) {
+			if(from[i]==null) {
+				continue;
+			}
+			to[j]=from[i];
+			j++;
+		}
+		return to;
+	}
 	
 	/**
 	 * Inner class. Defines logical entity Product.

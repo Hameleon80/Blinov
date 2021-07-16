@@ -1,22 +1,20 @@
 package chapter5.variantA;
 
-import java.util.Date;
-
 import chapter5.exception.MyException;
-import chapter5.variantA.notepad.Notepad;
+import chapter5.variantA.account.Account;
+import chapter5.variantA.account.Operation;
 
 public class Runner {
 
 	public static void main(String[] args) {
-		Notepad notepad=new Notepad();
+		Account ahtyrskiyYura=new Account("Ахтырский Юрий", 469235874, 250000000.50);
 		try {
-			notepad.addNote(new Date(), "Привет!");
-			notepad.addNote(new Date(), "Все получилось");
-		} catch (MyException ex) {
-			ex.printStackTrace();
+			ahtyrskiyYura.addOperation(2546845, 46582, Operation.WITHDRAWAL, "Rent");
+			ahtyrskiyYura.addOperation(4561846, 584.25, Operation.PAYMENT, "Электричество");
+		} catch (MyException e) {
+			e.printStackTrace();
 		}
-		System.out.println("Notepad!");
-		System.out.println(notepad);
+		System.out.println(ahtyrskiyYura);
+		ahtyrskiyYura.showOperations();
 	}
-
 }
