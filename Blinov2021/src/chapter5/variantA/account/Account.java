@@ -94,14 +94,82 @@ public class Account {
 		this.operations[capacity]=new OperationInformation(counterpartyNumberAccount, amount, operation, purpose);
 	}
 	
+	/**
+	 * Removes last operation.
+	 * 
+	 * @return - removed operation
+	 */
+	public OperationInformation remove() {
+		OperationInformation result=operations[capacity];
+		operations[capacity]=null;
+		capacity--;
+		return result;
+	}
+	
+	public OperationInformation remove(long id) throws MyException {
+		//parameter check
+		if(id<0) {
+			throw new MyException(ErrorMessage.INCORRECT_PARAMETER);
+		}
+		//removing
+		OperationInformation result=null;
+		for(int i=0; i<=capacity; i++) {
+			if(id==operations[i].getId()) {
+				result=operations[i];
+				break;
+			}
+		}
+		cleanArray();
+		return result;
+	}
+	
+	/**
+	 * Prints information about operations to account.
+	 */
 	public void showOperations() {
 		System.out.println("Operations to account " + this.accountNumber);
 		for(int i=0; i<=capacity; i++) {
-			System.out.println(operations[i]);
+			System.out.println(operations[i] + "\n");
 		}
 	}
+	
+	/**
+	 * Generates new random id from 1 to 10000000.
+	 * 
+	 * @return - generated id.
+	 */
 	private long generatId() {
 		return (long)(1+Math.random()*10000000);
+	}
+	
+	//====================== Helper methods ======================
+	/**
+	 * Removes null-elements from array.
+	 */
+	private void cleanArray() {
+		for(int i=0; i<this.capacity; i++) {
+			if(operations[i]==null) {
+				copyArrayWithautNull(i);
+				capacity--;
+			}
+		}
+	}
+	
+	/**
+	 * Copies array without null-elements. 
+	 * 
+	 * @param pos - position null-element
+	 */
+	private void copyArrayWithautNull(int pos) {
+		OperationInformation[] temp=new OperationInformation[this.size];
+		for(int i=0, j=0; i<this.capacity; i++) {
+			if(i==pos) {
+				continue;
+			}
+			temp[j]=this.operations[i];
+			j++;
+		}
+		this.operations=temp;
 	}
 	/**
 	 * Nested class with which saved information about operation on account
@@ -189,7 +257,7 @@ public class Account {
 				}
 			}else if(this.operation==Operation.PAYMENT) {
 				if(this.counterpartyNumberAccount!=0) {
-					sb.append("from account: ").append(this.counterpartyNumberAccount).append("\n");
+					sb.append("from account: ").append(this.counterpartyNumberAccount);
 				}
 			}
 			sb.append(" amount: ").append(this.amount);
